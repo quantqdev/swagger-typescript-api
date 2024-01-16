@@ -27,9 +27,7 @@ export interface Pet {
  *
  * A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
  */
-
 import { HttpClient, RequestParams } from "./http-client";
-
 export class Api<SecurityDataType extends unknown> {
   http: HttpClient<SecurityDataType>;
   baseUrl: string;
