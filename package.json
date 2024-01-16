@@ -48,6 +48,7 @@
     "test:--another-array-type": "node tests/spec/another-array-type/test.js",
     "test:--object-types": "node tests/spec/object-types/test.js",
     "test:--axios--single-http-client": "node tests/spec/axiosSingleHttpClient/test.js",
+    "test:--axios--single-separated-http-client-and-different-hosts": "node tests/spec/axiosSingleSeparatedHttpClientAndDifferentHosts/test.js",
     "test:--type-suffix--type-prefix": "node tests/spec/typeSuffixPrefix/test.js",
     "test:--dot-path-params": "node tests/spec/dot-path-params/test.js",
     "test:--primitive-type-constructs": "node tests/spec/primitive-type-constructs/test.js",

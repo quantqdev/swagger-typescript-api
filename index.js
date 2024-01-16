@@ -128,6 +128,18 @@ const program = cli({
       internal: { formatter: Boolean },
     },
     {
+      flags: '--separatedHttpClient',
+      description: 'separated http client file in default template',
+      default: codeGenBaseConfig.separatedHttpClient,
+      internal: { formatter: Boolean },
+    },
+    {
+      flags: '--specificApiBaseUrl',
+      description: 'api has baseUrl',
+      default: codeGenBaseConfig.specificApiBaseUrl,
+      internal: { formatter: Boolean },
+    },
+    {
       flags: '--js',
       description: 'generate js api module with declaration file',
       default: codeGenBaseConfig.toJS,

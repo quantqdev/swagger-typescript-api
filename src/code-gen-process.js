@@ -462,33 +462,45 @@ class CodeGenProcess {
    * @returns {Promise<TranslatorIO[]>}
    */
   createSingleFileInfo = async (templatesToRender, configuration) => {
-    const { generateRouteTypes, generateClient } = configuration.config;
+    const { fileNames, generateRouteTypes, generateClient, separatedHttpClient } = configuration.config;
 
-    return await this.createOutputFileInfo(
-      configuration,
-      configuration.fileName,
-      _.compact([
-        this.templatesWorker.renderTemplate(
-          templatesToRender.dataContracts,
-          configuration,
-        ),
-        generateRouteTypes &&
+    return [
+      ...await this.createOutputFileInfo(
+        configuration,
+        configuration.fileName,
+        _.compact([
           this.templatesWorker.renderTemplate(
-            templatesToRender.routeTypes,
+            templatesToRender.dataContracts,
             configuration,
           ),
-        generateClient &&
-          this.templatesWorker.renderTemplate(
-            templatesToRender.httpClient,
+          generateRouteTypes &&
+            this.templatesWorker.renderTemplate(
+              templatesToRender.routeTypes,
+              configuration,
+            ),
+          generateClient && !separatedHttpClient &&
+            this.templatesWorker.renderTemplate(
+              templatesToRender.httpClient,
+              configuration,
+            ),
+          generateClient &&
+            this.templatesWorker.renderTemplate(
+              templatesToRender.api,
+              configuration,
+            ),
+        ]).join('\n'),
+      ),
+      ...(generateClient && separatedHttpClient
+        ? await this.createOutputFileInfo(
             configuration,
-          ),
-        generateClient &&
-          this.templatesWorker.renderTemplate(
-            templatesToRender.api,
-            configuration,
-          ),
-      ]).join('\n'),
-    );
+            fileNames.httpClient,
+            this.templatesWorker.renderTemplate(
+              templatesToRender.httpClient,
+              configuration,
+            ),
+          )
+        : []),
+    ]
   };
 
   /**
