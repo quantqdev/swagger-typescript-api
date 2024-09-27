@@ -154,6 +154,8 @@ class CodeGenConfig {
   extraTemplates = [];
   input = '';
   modular = false;
+  separatedHttpClient = false;
+  specificApiBaseUrl = false;
   output = '';
   url = '';
   cleanOutput = false;
